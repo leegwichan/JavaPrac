@@ -16,25 +16,6 @@ public class Test {
                 0
         );
         System.out.println(result2);
-        int[][] testArray = new int[][]
-                {
-                        {0, 0, 0, 0, 0},
-                        {0, 0, 0, 1, 0},
-                        {0, 1, 0, 0, 0},
-                        {0, 1, 1, 0, 1},
-                        {1, 0, 0, 0, 0}
-                };
-
-        int[][] newMatrix = testArray;
-        newMatrix[3] = new int[testArray.length];
-
-        for (int i=0; i<5; i++){
-            for(int j=0; j<5; j++){
-                System.out.print(testArray[i][j]);
-                System.out.print(" ");
-            }
-            System.out.println();
-        }
     }
 
     boolean getDirections(int[][] matrix, int from, int to) {
