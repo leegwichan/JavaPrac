@@ -1,55 +1,52 @@
 package javaPrac.dataStructure.queue;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        Test test = new Test();
+        Solution solution = new Solution();
+        System.out.println(solution.ocean(100, new int[]{10,20,50,55}));
 
-        boolean result2 = test.getDirections(new int[][]
-                        {
-                                {0, 1, 0, 0, 0},
-                                {0, 0, 0, 1, 0},
-                                {0, 1, 0, 0, 0},
-                                {0, 1, 1, 0, 0},
-                                {1, 1, 1, 1, 0}
-                        },
-                4,
-                0
-        );
-        System.out.println(result2);
+    }
+}
+class Solution {
+    Map<Integer, Map<Integer, Long>> checkPoint = new HashMap<>();
+
+    public long ocean(int target, int[] type) {
+        Arrays.sort(type);
+
+        for (int i=2; i<=type.length; i++){
+            checkPoint.put(i,new HashMap<Integer, Long>());
+        }
+
+        return findAns(target, type);
     }
 
-    boolean getDirections(int[][] matrix, int from, int to) {
-        // 출발지에 있는 줄을 본다.
-        // 값이 1인 인덱스를 찾는다.
-        // 다시 현재 지점에 있는 줄을 본다.
-        // 값이 1인 인덱스를 찾는다.
-        //
-
-        // true : to에 도착한다. 해당 줄에서 row[to] == 1
-        // false
-        // 이미 사용한 길은 0으로 바꿔서 다시 사용하지 못하게 한다.
-        // 전부 0으로 이루어져 있으면 false
-
-        if (matrix[from][to] == 1) return true;
-        if (compare0(matrix[from])) return false;
-
-        for (int i=0; i<matrix.length; i++){
-            if(matrix[from][i] == 1){
-                int[][] newMatrix = matrix;
-                newMatrix[from] = new int[matrix.length];
-                if (getDirections(newMatrix, i, to) == true)
-                    return true;
-            }
+    public long findAns(int target, int[] type){
+        // 리스트 한개일 때, 나누어 떨어지면 1 반환
+        // 안나누어 떨어지면 0 반환
+        if (type.length == 1){
+            return target % type[0] == 0 ? 1L : 0L;
         }
-        return false;
-    }
-
-    public boolean compare0(int[] arr){
-        for (int i=0; i<arr.length; i++){
-            if (arr[i] != 0){
-                return false;
-            }
+        // 체크포인트 확인
+        if(checkPoint.get(type.length).containsKey(target)){
+            return checkPoint.get(type.length).get(target);
         }
-        return true;
+
+        int cases = target / type[0];
+        int unit = type[0];
+        long count = 0;
+
+        // 제일 큰 금액 을 0,1 ... n 개 사용했을 때
+        for (int i=0; i <= cases; i++){
+            // 제일 큰 금액 리스트에서 제거한 배열, 금액 차감한 target으로 재귀
+            int[] newType = Arrays.copyOfRange(type, 1, type.length);
+            count += findAns(target - unit*i, newType);
+        }
+
+        // checkPoint 저장
+        checkPoint.get(type.length).put(target,count);
+
+        // 총갯수 반환
+        return count;
     }
 }
