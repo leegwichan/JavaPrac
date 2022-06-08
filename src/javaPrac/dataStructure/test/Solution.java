@@ -113,6 +113,7 @@ public class Solution {
 }
 
 
+
 class apply{
     public static void main(String[] args) {
         long beforeTime = System.currentTimeMillis();
@@ -122,5 +123,7 @@ class apply{
 
         long afterTime = System.currentTimeMillis();
         System.out.println(afterTime - beforeTime);
+
+
     }
 }
