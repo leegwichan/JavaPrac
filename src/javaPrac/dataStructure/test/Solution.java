@@ -110,20 +110,51 @@ public class Solution {
         // 현재 str에서 1, 2, 3을 이어붙여서 유효한 문자열을 만들 수 없는 경우
         return null;
     }
+
+    public int numberSearch(String str) {
+        // TODO:
+
+        ArrayList<Character> charList = new ArrayList<>();
+        for (int i=0; i<str.length(); i++){
+            charList.add(str.charAt(i));
+        }
+
+        int strLength = 0;
+        int numSum = 0;
+        for (char character : charList){
+            if (30 <= character && character <= 39){
+                numSum += character - '0';
+            } else if(character == ' '){
+                continue;
+            } else{
+                strLength++;
+            }
+        }
+
+        int ans = numSum / strLength;
+        if (numSum % strLength > strLength / 2 || (strLength % 2 == 0 && numSum % strLength == strLength / 2)){
+            ans++;
+        }
+
+        return ans;
+
+    }
 }
 
 
 
 class apply{
     public static void main(String[] args) {
-        long beforeTime = System.currentTimeMillis();
+//        long beforeTime = System.currentTimeMillis();
+//        Solution solution = new Solution();
+//        System.out.println(solution.barcode(10));
+//
+//
+//        long afterTime = System.currentTimeMillis();
+//        System.out.println(afterTime - beforeTime);
+
         Solution solution = new Solution();
-        System.out.println(solution.barcode(10));
-
-
-        long afterTime = System.currentTimeMillis();
-        System.out.println(afterTime - beforeTime);
-
+        System.out.println(solution.numberSearch("Hello6 9World 2, Nic8e D7ay!"));
 
     }
 }
