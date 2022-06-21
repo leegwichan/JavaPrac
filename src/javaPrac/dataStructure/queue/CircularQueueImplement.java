@@ -7,7 +7,7 @@ public class CircularQueueImplement {
         System.out.println(cirQueue.offer(1));
         System.out.println(cirQueue.offer(2));
         System.out.println(cirQueue.offer(3));
-        System.out.println(cirQueue.offer(4));
+        System.out.println(cirQueue.offer(5));
         System.out.println();
 
         System.out.println(cirQueue.poll());
